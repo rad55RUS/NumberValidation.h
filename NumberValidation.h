@@ -30,7 +30,7 @@ bool isInteger(string number)
 bool isDouble(string number)
 {
     int commas = 0;
-    bool is_double = (number.find_first_not_of("0123456789,.") == std::string::npos);
+    bool is_double = (number.find_first_not_of("0123456789,.") == string::npos);
     if (is_double == true && !isdigit(number[0]) && !isdigit(number[number.size() - 1]))
         is_double = false;
     for (int i = 0; i < number.size(); i++) {
@@ -169,7 +169,6 @@ vector<int> enterSequence(int min, int max)
     vector<int> seq;
     string number;
     string sequence;
-    cin.get();
     getline(cin, sequence);
     bool again = false;
     for (int i = 0; i < sequence.size(); i++) {
