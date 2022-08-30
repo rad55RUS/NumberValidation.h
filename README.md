@@ -1,6 +1,5 @@
 # NumberValidation.h
-My library for entering numbers, their validation and entering sequence (sequences may be separated later). If you want to use english version of code,
-you can copy it below
+My library for entering positive (for now) numbers, their validation and entering sequence (sequences may be separated later). If you want to use english version of code, you can copy it below
 <br> <br>
 
 ## Number entering functions
