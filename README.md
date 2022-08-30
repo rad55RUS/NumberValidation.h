@@ -1,16 +1,17 @@
 # NumberValidation.h
-My library for entering numbers, their validation and entering sequence (sequences may be separated later)
+My library for entering numbers, their validation and entering sequence (sequences may be separated later). If you want to use english version of code,
+you can copy it below
 <br> <br>
 
 ## Number entering functions
 ### Integer entering
 `enterInteger()`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;   - enter integer <br>
-`enterInteger(int min)`&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;  - enter integer greater than ***min*** <br>
-`enterInteger(int min, int max)`&nbsp;&nbsp;&nbsp;                       - enter integer greater than ***min*** and less than ***max*** <br>
+`enterInteger(int min)`&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;  - enter integer not less than ***min*** <br>
+`enterInteger(int min, int max)`&nbsp;&nbsp;&nbsp;                       - enter integer not less than ***min*** and not greater than ***max*** <br>
 ### Double entering
 `enterDouble()`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;   - enter double <br>
-`enterDouble(int min)`&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  - enter double greater than ***min*** <br>
-`enterDouble(int min, int max)`&nbsp;&nbsp;&nbsp;&nbsp;                       - enter double greater than ***min*** and less than ***max*** <br>
+`enterDouble(int min)`&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  - enter double not less than ***min*** <br>
+`enterDouble(int min, int max)`&nbsp;&nbsp;&nbsp;&nbsp;                       - enter double not less than ***min*** and not greater than ***max*** <br>
 
 ## Sequnce entering
 ### Integer sequence entering to vector
@@ -74,9 +75,9 @@ int enterInteger()
 {
     string number;
     cin >> number;
-    while (isInteger(number) == false) // Проверка числа
+    while (isInteger(number) == false)
     {
-        cout << "\nПожалуйста, введите целое число: ";
+        cout << "\nPlease, enter integer: ";
         cin >> number;
     }
     int num = stoi(number);
@@ -89,9 +90,9 @@ int enterInteger(int min)
 {
     string number;
     cin >> number;
-    while (isInteger(number) == false && stoi(number) > min) // Проверка числа
+    while (isInteger(number) == false && stoi(number) > min)
     {
-        cout << "\nПожалуйста, введите целое число число не менее " << min << ": ";
+        cout << "\nPlease, enter integer not less than " << min << ": ";
         cin >> number;
     }
     int num = stoi(number);
@@ -104,9 +105,9 @@ int enterInteger(int min, int max)
 {
     string number;
     cin >> number;
-    while (isInteger(number) && stoi(number) > min && stoi(number) < max) // Проверка числа
+    while (isInteger(number) && stoi(number) > min && stoi(number) < max)
     {
-        cout << "\nПожалуйста, введите целое число число не менее" << min << ", и не более " << max << ": ";
+        cout << "\nPlease, enter integer not less than " << min << ", and not greater " << max << ": ";
         cin >> number;
     }
     int num = stoi(number);
@@ -119,9 +120,9 @@ double enterDouble()
 {
     string number;
     cin >> number;
-    while (isDouble(number)) // Проверка числа
+    while (isDouble(number))
     {
-        cout << "\nПожалуйста, введите целое число: ";
+        cout << "\nPlease, enter fractional number: ";
         cin >> number;
     }
     double num = stod(number);
@@ -134,9 +135,9 @@ double enterDouble(double min)
 {
     string number;
     cin >> number;
-    while (isDouble(number) && stod(number) > min) // Проверка числа
+    while (isDouble(number) && stod(number) > min)
     {
-        cout << "\nПожалуйста, введите целое число число не менее " << min << ": ";
+        cout << "\nPlease, enter fractional number not less than " << min << ": ";
         cin >> number;
     }
     double num = stod(number);
@@ -151,7 +152,7 @@ double enterDouble(double min, double max)
     cin >> number;
     while (isDouble(number) && stod(number) > min && stod(number) < max) // Проверка числа
     {
-        cout << "\nПожалуйста, введите целое число число не менее" << min << ", и не более " << max << ": ";
+        cout << "\nPlease, enter fractional number not less than " << min << ", and not greater " << max << ": ";
         cin >> number;
     }
     double num = stod(number);
