@@ -1,141 +1,207 @@
-#include <iostream>
-#include <sstream>
-#include <cstring>
-#include <string>
-#include <cctype>
-#include <string>
-#include <ostream>
-#include <cmath>
-#include <math.h>
-#include <Windows.h>
-#include <stdio.h>
-#include <iomanip>
-#include <vector>
-#include <time.h>
+// Библиотеки
+#include <iostream>     // Ввод-вывод
+#include <iomanip>      // Ввод-вывод доп
+#include <stdio.h>      // Ввод-вывод доп
+#include <cstring>      // Строки
+#include <sstream>      // Строки доп
+#include <cctype>       // Символы
+#include <ostream>      // Вывод доп
+#include <cmath>        // Математика
+#include <Windows.h>    // Windows API
+#include <vector>       // Векторы
+#include <ctime>        // Время
+#include <chrono>       // Создание таймера
+#include <list>         // Списки
+#include <algorithm>    // Доп функции
 #include <intrin.h>
-#include <ctime>
-#include <chrono>
-#include <list>
-#include <algorithm>
+//
 #pragma once
 
 using namespace std;
 
-// Проверка на число (доп функция)
-void isdFunc(bool& isd, char number[256], char* p)
+// Проверка на целое число
+bool isInteger(string number)
 {
-    while (*p)
-        if (!isdigit(unsigned char(*p++)))
-        {
-            isd = false;
-            break;
+    return all_of(number.begin(), number.end(), ::isdigit);
+}
+//
+
+// Проверка на дробное число
+bool isDouble(string number)
+{
+    int commas = 0;
+    bool is_double = (number.find_first_not_of("0123456789,.") == std::string::npos);
+    if (is_double == true && !isdigit(number[0]) && !isdigit(number[number.size() - 1]))
+        is_double = false;
+    for (int i = 0; i < number.size(); i++) {
+        if (number[i] == ',' || number[i] == '.') {
+            commas++;
+            if (commas > 1) {
+                is_double = false;
+                break;
+            }
         }
-    if (abs(atof(number)) != (int)atof(number))
-        isd = true;
-}
-//
-
-// Валидация введенного числа
-double checkNumber(double num, bool& check, bool& isd, char number[256], char* p)
-{
-    while (check == false) // Проверка числа N
-    {
-        isd = true;
-        cout << "\nПожалуйста, введите число";
-        cin >> number;
-        p = number;
-        isdFunc(isd, number, p);
-        num = atof(number);
-        if (isd == true)
-            check = true;
     }
-    return num;
+    return is_double;
 }
 //
 
-// Ввод числа
-double enterNumber()
+// Ввод целого числа
+int enterInteger()
 {
-    char number[256]{}, * p = number;
-    bool isd = true;
-    bool check = false;
-    cin >> number;
-    p = number;
-    isdFunc(isd, number, p);
-    double num = atof(number);
-    if (isd == true)
-        check = true;
-    checkNumber(num, check, isd, number, p);
-    return num;
-}
-//
-
-// Валидация введенного числа от min до inf
-double checkNumber(double num, bool& check, bool& isd, char number[256], char* p, int min)
-{
-    while (check == false) // Проверка числа N
+    string number;
+    getline(cin, number);
+    while (isInteger(number) == false) // Проверка числа
     {
-        isd = true;
-        cout << "\nПожалуйста, введите число не менее " << min << ": ";
+        cout << "\nПожалуйста, введите целое число: ";
         cin >> number;
-        p = number;
-        isdFunc(isd, number, p);
-        num = atof(number);
-        if (isd == true && num >= min)
-            check = true;
     }
+    int num = stoi(number);
     return num;
 }
 //
 
 // Ввод числа от min до inf
-double enterNumber(int min)
+int enterInteger(int min)
 {
-    char number[256]{}, * p = number;
-    bool isd = true;
-    bool check = false;
-    cin >> number;
-    p = number;
-    isdFunc(isd, number, p);
-    double num = atof(number);
-    if (isd == true && num >= min)
-        check = true;
-    checkNumber(num, check, isd, number, p, min);
-    return num;
-}
-//
-
-// Валидация введенного числа от min до max
-double checkNumber(double num, bool& check, bool& isd, char number[256], char* p, int min, int max)
-{
-    while (check == false) // Проверка числа N
+    string number;
+    getline(cin, number);
+    while (isInteger(number) == false && stoi(number) > min) // Проверка числа
     {
-        isd = true;
-        cout << "\nПожалуйста, введите число не менее " << min << " и не более " << max << ": ";
+        cout << "\nПожалуйста, введите целое число число не менее " << min << ": ";
         cin >> number;
-        p = number;
-        isdFunc(isd, number, p);
-        num = atof(number);
-        if (isd == true && num >= min && num <= max)
-            check = true;
     }
+    int num = stoi(number);
     return num;
 }
 //
 
 // Ввод числа от min до max
-double enterNumber(int min, int max)
+int enterInteger(int min, int max)
 {
-    char number[256]{}, * p = number;
-    bool isd = true;
-    bool check = false;
-    cin >> number;
-    p = number;
-    isdFunc(isd, number, p);
-    double num = atof(number);
-    if (isd == true && num >= min && num <= max)
-        check = true;
-    checkNumber(num, check, isd, number, p, min, max);
+    string number;
+    getline(cin, number);
+    while (isInteger(number) && stoi(number) > min && stoi(number) < max) // Проверка числа
+    {
+        cout << "\nПожалуйста, введите целое число число не менее" << min << ", и не более " << max << ": ";
+        cin >> number;
+    }
+    int num = stoi(number);
     return num;
+}
+//
+
+// Ввод дробного числа
+double enterDouble()
+{
+    string number;
+    getline(cin, number);
+    while (isDouble(number)) // Проверка числа
+    {
+        cout << "\nПожалуйста, введите дробное число: ";
+        cin >> number;
+    }
+    double num = stod(number);
+    return num;
+}
+//
+
+// Ввод дробного числа от min до inf
+double enterDouble(double min)
+{
+    string number;
+    getline(cin, number);
+    while (isDouble(number) && stod(number) > min) // Проверка числа
+    {
+        cout << "\nПожалуйста, введите дробное число число не менее " << min << ": ";
+        cin >> number;
+    }
+    double num = stod(number);
+    return num;
+}
+//
+
+// Ввод дробного числа от min до max
+double enterDouble(double min, double max)
+{
+    string number;
+    getline(cin, number);
+    while (isDouble(number) && stod(number) > min && stod(number) < max) // Проверка числа
+    {
+        cout << "\nПожалуйста, введите дробное число число не менее" << min << ", и не более " << max << ": ";
+        cin >> number;
+    }
+    double num = stod(number);
+    return num;
+}
+//
+
+// Ввод последовательности целых чисел
+vector<int> enterSequence()
+{
+    vector<int> seq;
+    string sequence, number;
+    bool again = false;
+    getline(cin, sequence);
+    for (int i = 0; i < sequence.size(); i++) {
+        if (isdigit(sequence[i]))
+            number.push_back(sequence[i]);
+        else {
+            if (number.size() > 0) {
+                seq.push_back(stoi(number));
+                number.clear();
+            }
+        }
+    }
+    if (isdigit(sequence[sequence.size() - 1])) {
+        if (number.size() > 0) {
+            seq.push_back(stoi(number));
+            number.clear();
+        }
+    }
+    return seq;
+}
+//
+
+// Ввод последовательности целых чисел от min до max
+vector<int> enterSequence(int min, int max)
+{
+    vector<int> seq;
+    string number;
+    string sequence;
+    cin.get();
+    getline(cin, sequence);
+    bool again = false;
+    for (int i = 0; i < sequence.size(); i++) {
+        if (isdigit(sequence[i]))
+            number.push_back(sequence[i]);
+        else {
+            if (number.size() > 0) {
+                if (stoi(number) < min || stoi(number) > max) {
+                    again = true;
+                    cout << "Введите последовательность еще раз: ";
+                    break;
+                }
+                seq.push_back(stoi(number));
+                number.clear();
+            }
+        }
+    }
+    if (!again)
+        if (isdigit(sequence[sequence.size() - 1])) {
+            if (number.size() > 0) {
+                if (stoi(number) < min || stoi(number) > max) {
+                    again = true;
+                    cin.clear();
+                    cout << "Введите последовательность еще раз: ";
+                }
+                seq.push_back(stoi(number));
+                number.clear();
+            }
+        }
+    if (!again)
+        return seq;
+    else
+        return enterSequence(min, max);
 }
 //
