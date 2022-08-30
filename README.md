@@ -1,5 +1,5 @@
 # NumberValidation.h
-My library for entering positive (for now) numbers, their validation and entering sequence (sequences may be separated later). If you want to use english version of code, you can copy it below
+My library for entering positive (for now) numbers, their validation and entering sequence (sequences may be separated later)
 <br> <br>
 
 ## Number entering functions
@@ -24,37 +24,39 @@ My library for entering positive (for now) numbers, their validation and enterin
 
 # Code
 ```cpp
-#include <iostream>
-#include <iomanip>
-#include <stdio.h>
-#include <cstring>
-#include <sstream>
-#include <cctype>
-#include <ostream>
-#include <cmath>
-#include <Windows.h>
-#include <vector>
-#include <ctime>
-#include <chrono>
-#include <list>
-#include <algorithm>
+// Библиотеки
+#include <iostream>     // Ввод-вывод
+#include <iomanip>      // Ввод-вывод доп
+#include <stdio.h>      // Ввод-вывод доп
+#include <cstring>      // Строки
+#include <sstream>      // Строки доп
+#include <cctype>       // Символы
+#include <ostream>      // Вывод доп
+#include <cmath>        // Математика
+#include <Windows.h>    // Windows API
+#include <vector>       // Векторы
+#include <ctime>        // Время
+#include <chrono>       // Создание таймера
+#include <list>         // Списки
+#include <algorithm>    // Доп функции
 #include <intrin.h>
+//
 #pragma once
 
 using namespace std;
 
-// Integer validation
+// Проверка на целое число
 bool isInteger(string number)
 {
     return all_of(number.begin(), number.end(), ::isdigit);
 }
 //
 
-// Double validation
+// Проверка на дробное число
 bool isDouble(string number)
 {
     int commas = 0;
-    bool is_double = (number.find_first_not_of("0123456789,.") == std::string::npos);
+    bool is_double = (number.find_first_not_of("0123456789,.") == string::npos);
     if (is_double == true && !isdigit(number[0]) && !isdigit(number[number.size() - 1]))
         is_double = false;
     for (int i = 0; i < number.size(); i++) {
@@ -70,14 +72,14 @@ bool isDouble(string number)
 }
 //
 
-// Integer entering
+// Ввод целого числа
 int enterInteger()
 {
     string number;
     getline(cin, number);
-    while (isInteger(number) == false)
+    while (isInteger(number) == false) // Проверка числа
     {
-        cout << "\nPlease, enter integer: ";
+        cout << "\nПожалуйста, введите целое число: ";
         cin >> number;
     }
     int num = stoi(number);
@@ -85,14 +87,14 @@ int enterInteger()
 }
 //
 
-// Integer entering from min to inf
+// Ввод числа от min до inf
 int enterInteger(int min)
 {
     string number;
     getline(cin, number);
-    while (isInteger(number) == false && stoi(number) > min)
+    while (isInteger(number) == false && stoi(number) > min) // Проверка числа
     {
-        cout << "\nPlease, enter integer not less than " << min << ": ";
+        cout << "\nПожалуйста, введите целое число число не менее " << min << ": ";
         cin >> number;
     }
     int num = stoi(number);
@@ -100,14 +102,14 @@ int enterInteger(int min)
 }
 //
 
-// Integer entering from min to max
+// Ввод числа от min до max
 int enterInteger(int min, int max)
 {
     string number;
     getline(cin, number);
-    while (isInteger(number) && stoi(number) > min && stoi(number) < max)
+    while (isInteger(number) && stoi(number) > min && stoi(number) < max) // Проверка числа
     {
-        cout << "\nPlease, enter integer not less than " << min << ", and not greater " << max << ": ";
+        cout << "\nПожалуйста, введите целое число число не менее" << min << ", и не более " << max << ": ";
         cin >> number;
     }
     int num = stoi(number);
@@ -115,14 +117,14 @@ int enterInteger(int min, int max)
 }
 //
 
-// Double entering
+// Ввод дробного числа
 double enterDouble()
 {
     string number;
     getline(cin, number);
-    while (isDouble(number))
+    while (isDouble(number)) // Проверка числа
     {
-        cout << "\nPlease, enter fractional number: ";
+        cout << "\nПожалуйста, введите дробное число: ";
         cin >> number;
     }
     double num = stod(number);
@@ -130,14 +132,14 @@ double enterDouble()
 }
 //
 
-// Double entering from min to inf
+// Ввод дробного числа от min до inf
 double enterDouble(double min)
 {
     string number;
     getline(cin, number);
-    while (isDouble(number) && stod(number) > min)
+    while (isDouble(number) && stod(number) > min) // Проверка числа
     {
-        cout << "\nPlease, enter fractional number not less than " << min << ": ";
+        cout << "\nПожалуйста, введите дробное число число не менее " << min << ": ";
         cin >> number;
     }
     double num = stod(number);
@@ -145,14 +147,14 @@ double enterDouble(double min)
 }
 //
 
-// Double entering from min to max
+// Ввод дробного числа от min до max
 double enterDouble(double min, double max)
 {
     string number;
     getline(cin, number);
     while (isDouble(number) && stod(number) > min && stod(number) < max) // Проверка числа
     {
-        cout << "\nPlease, enter fractional number not less than " << min << ", and not greater " << max << ": ";
+        cout << "\nПожалуйста, введите дробное число число не менее" << min << ", и не более " << max << ": ";
         cin >> number;
     }
     double num = stod(number);
@@ -160,7 +162,7 @@ double enterDouble(double min, double max)
 }
 //
 
-// Integer sequence entering
+// Ввод последовательности целых чисел
 vector<int> enterSequence()
 {
     vector<int> seq;
@@ -187,13 +189,12 @@ vector<int> enterSequence()
 }
 //
 
-// Integer sequence entering from min to max
+// Ввод последовательности целых чисел от min до max
 vector<int> enterSequence(int min, int max)
 {
     vector<int> seq;
     string number;
     string sequence;
-    cin.get();
     getline(cin, sequence);
     bool again = false;
     for (int i = 0; i < sequence.size(); i++) {
@@ -203,7 +204,7 @@ vector<int> enterSequence(int min, int max)
             if (number.size() > 0) {
                 if (stoi(number) < min || stoi(number) > max) {
                     again = true;
-                    cout << "Enter sequence again: ";
+                    cout << "Введите последовательность еще раз: ";
                     break;
                 }
                 seq.push_back(stoi(number));
@@ -217,7 +218,7 @@ vector<int> enterSequence(int min, int max)
                 if (stoi(number) < min || stoi(number) > max) {
                     again = true;
                     cin.clear();
-                    cout << "Enter sequence again: ";
+                    cout << "Введите последовательность еще раз: ";
                 }
                 seq.push_back(stoi(number));
                 number.clear();
