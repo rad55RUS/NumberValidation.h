@@ -13,7 +13,7 @@ My library for entering numbers, their validation and entering sequence (sequenc
 `enterDouble(int min, int max)`&nbsp;&nbsp;&nbsp;&nbsp;                       - enter double greater than ***min*** and less than ***max*** <br>
 
 ## Sequnce entering
-### Sequence entering to vector
+### Integer sequence entering to vector
 `enterSequence(vector<int> seq)`&nbsp;&nbsp;&nbsp;          - enter sequence ***seq*** <br>
 ## Validation functions (used by number entering functions)
 `isInteger(string number)`&emsp;&emsp;&emsp;&nbsp;&nbsp;     - check string ***number*** for integer <br>
@@ -184,4 +184,5 @@ vector<int> enterSequence(vector<int> seq)
     }
     return seq;
 }
+//
 ```
