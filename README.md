@@ -14,7 +14,8 @@ My library for entering positive (for now) numbers, their validation and enterin
 
 ## Sequnce entering
 ### Integer sequence entering to vector
-`enterSequence(vector<int> seq)`&nbsp;&nbsp;&nbsp;          - enter sequence ***seq*** <br>
+`enterSequence()`&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - enter sequence <br>
+`enterSequence(int min, int max)`&nbsp;&nbsp;&nbsp;                                       - enter sequence not less than ***min*** and not greater than ***max*** <br>
 ## Validation functions (used by number entering functions)
 `isInteger(string number)`&emsp;&emsp;&emsp;&nbsp;&nbsp;     - check string ***number*** for integer <br>
 `isDouble(string number)`&emsp;&emsp;&emsp;&emsp;            - check string ***number*** for double <br>
@@ -73,7 +74,7 @@ bool isDouble(string number)
 int enterInteger()
 {
     string number;
-    cin >> number;
+    getline(cin, number);
     while (isInteger(number) == false)
     {
         cout << "\nPlease, enter integer: ";
@@ -88,7 +89,7 @@ int enterInteger()
 int enterInteger(int min)
 {
     string number;
-    cin >> number;
+    getline(cin, number);
     while (isInteger(number) == false && stoi(number) > min)
     {
         cout << "\nPlease, enter integer not less than " << min << ": ";
@@ -103,7 +104,7 @@ int enterInteger(int min)
 int enterInteger(int min, int max)
 {
     string number;
-    cin >> number;
+    getline(cin, number);
     while (isInteger(number) && stoi(number) > min && stoi(number) < max)
     {
         cout << "\nPlease, enter integer not less than " << min << ", and not greater " << max << ": ";
@@ -118,7 +119,7 @@ int enterInteger(int min, int max)
 double enterDouble()
 {
     string number;
-    cin >> number;
+    getline(cin, number);
     while (isDouble(number))
     {
         cout << "\nPlease, enter fractional number: ";
@@ -133,7 +134,7 @@ double enterDouble()
 double enterDouble(double min)
 {
     string number;
-    cin >> number;
+    getline(cin, number);
     while (isDouble(number) && stod(number) > min)
     {
         cout << "\nPlease, enter fractional number not less than " << min << ": ";
@@ -148,7 +149,7 @@ double enterDouble(double min)
 double enterDouble(double min, double max)
 {
     string number;
-    cin >> number;
+    getline(cin, number);
     while (isDouble(number) && stod(number) > min && stod(number) < max) // Проверка числа
     {
         cout << "\nPlease, enter fractional number not less than " << min << ", and not greater " << max << ": ";
@@ -160,12 +161,12 @@ double enterDouble(double min, double max)
 //
 
 // Integer sequence entering
-vector<int> enterSequence(vector<int> seq)
+vector<int> enterSequence()
 {
+    vector<int> seq;
     string sequence, number;
-    bool isd = true;
-    bool check = false;
-    cin >> sequence;
+    bool again = false;
+    getline(cin, sequence);
     for (int i = 0; i < sequence.size(); i++) {
         if (isdigit(sequence[i]))
             number.push_back(sequence[i]);
@@ -176,13 +177,56 @@ vector<int> enterSequence(vector<int> seq)
             }
         }
     }
-    if (sequence[sequence.size() - 1] != ',' && sequence[sequence.size() - 1] != ' ' && sequence[sequence.size() - 1] != '.') {
+    if (isdigit(sequence[sequence.size() - 1])) {
         if (number.size() > 0) {
             seq.push_back(stoi(number));
             number.clear();
         }
     }
     return seq;
+}
+//
+
+// Integer sequence entering from min to max
+vector<int> enterSequence(int min, int max)
+{
+    vector<int> seq;
+    string number;
+    string sequence;
+    cin.get();
+    getline(cin, sequence);
+    bool again = false;
+    for (int i = 0; i < sequence.size(); i++) {
+        if (isdigit(sequence[i]))
+            number.push_back(sequence[i]);
+        else {
+            if (number.size() > 0) {
+                if (stoi(number) < min || stoi(number) > max) {
+                    again = true;
+                    cout << "Enter sequence again: ";
+                    break;
+                }
+                seq.push_back(stoi(number));
+                number.clear();
+            }
+        }
+    }
+    if (!again)
+        if (isdigit(sequence[sequence.size() - 1])) {
+            if (number.size() > 0) {
+                if (stoi(number) < min || stoi(number) > max) {
+                    again = true;
+                    cin.clear();
+                    cout << "Enter sequence again: ";
+                }
+                seq.push_back(stoi(number));
+                number.clear();
+            }
+        }
+    if (!again)
+        return seq;
+    else
+        return enterSequence(min, max);
 }
 //
 ```
